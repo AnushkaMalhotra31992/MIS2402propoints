@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<style> .btn{border:1px solid black; padding:5px;display:inline-block} </style>
+</head>
+<body>
+	<div class="container">
+		<h1>Death Rate due to Disease of the Heart for Citizens of New York</h1>
+		<p>The bar chart created from this dataset revealed that diseases of the heart are a leading 
+      killer among all demographics. This line chart showcases the death rate per 100,000 citizens due to heart 
+      issues for the years 2015-2019. Data is separated by ethnic background.
+    </p>
+		<form>
+			<input type="button" value="Leading Cause of Death for Hispanic Citizens" id="btn_1"><br><br>
+		    <input type="button" value="Leading Cause of Death for Non-Hispanic Black Citizens" id="btn_2"><br><br>
+			<input type="button" value="Leading Cause of Death for Asian and Pacific Islander Citizens" id="btn_3"><br><br>
+		    <input type="button" value="Leading Cause of Death for Non-Hispanic White  Citizens" id="btn_4">
+		</form>
+		<br><br><br>
+		<div id="output"></div>
+		<div id="output2"></div>
+		<div id="output3"></div>
+		<div id="output4"></div>
+
+	</div>
+</body>
+<script>
+
+
+	
+	function getTheData(){
+  $.getJSON("https://data.cityofnewyork.us/resource/jb7j-dtam.json",function(result){
+    let racedata = [];
+    for(let i = 0; i < result.length; i++){
+      if (result[i]['race_ethnicity'] == 'Hispanic' && result[i]['age_adjusted_death_rate'] != undefined
+          && result[i]['leading_cause']=='Diseases of Heart (I00-I09, I11, I13, I20-I51)') {
+        let race = [];
+        race[0] = result[i]['age_adjusted_death_rate'];
+        race[1] = result[i]['leading_cause'];
+        race[2] = result[i]['year'];
+        racedata.push(race);
+      }
+    }
+    racedata.sort(function(pos1, pos2) {
+      return pos2[0] - pos1[0];
+    });
+
+    let selectedValues = [
+      parseFloat(racedata.find(item => item[2] == 2015)[0]),
+      parseFloat(racedata.find(item => item[2] == 2016)[0]),
+      parseFloat(racedata.find(item => item[2] == 2017)[0]),
+      parseFloat(racedata.find(item => item[2] == 2018)[0]),
+      parseFloat(racedata.find(item => item[2] == 2019)[0])
+    ];
+    console.log(selectedValues);
+
+    plotTheChart(selectedValues);
+  });
+}
+
+
+function getTheDataB(){
+	//console.log("Here we go get the data...");
+
+
+	$.getJSON("https://data.cityofnewyork.us/resource/jb7j-dtam.json",function(result){
+    let racedata = [];
+    for(let i = 0; i < result.length; i++){
+      if (result[i]['race_ethnicity'] == 'Non-Hispanic Black' && result[i]['age_adjusted_death_rate'] != undefined
+          && result[i]['leading_cause']=='Diseases of Heart (I00-I09, I11, I13, I20-I51)') {
+        let race = [];
+        race[0] = result[i]['age_adjusted_death_rate'];
+        race[1] = result[i]['leading_cause'];
+        race[2] = result[i]['year'];
+        racedata.push(race);
+      }
+    }
+    racedata.sort(function(pos1, pos2) {
+      return pos2[0] - pos1[0];
+    });
+
+    let selectedValues = [
+      
+      parseFloat(racedata.find(item => item[2] == 2015)[0]),
+      parseFloat(racedata.find(item => item[2] == 2016)[0]),
+      parseFloat(racedata.find(item => item[2] == 2017)[0]),
+      parseFloat(racedata.find(item => item[2] == 2018)[0]),
+      parseFloat(racedata.find(item => item[2] == 2019)[0]),
+    ];
+
+
+
+    console.log(selectedValues);
+
+    plotTheChartB(selectedValues);
+  });
+}
+
+function getTheDataA(){
+	//console.log("Here we go get the data...");
+
+
+	$.getJSON("https://data.cityofnewyork.us/resource/jb7j-dtam.json",function(result){
+    let racedata = [];
+    for(let i = 0; i < result.length; i++){
+      if (result[i]['race_ethnicity'] == 'Asian and Pacific Islander' && result[i]['age_adjusted_death_rate'] != undefined
+          && result[i]['leading_cause']=='Diseases of Heart (I00-I09, I11, I13, I20-I51)') {
+        let race = [];
+        race[0] = result[i]['age_adjusted_death_rate'];
+        race[1] = result[i]['leading_cause'];
+        race[2] = result[i]['year'];
+        racedata.push(race);
+      }
+    }
+    racedata.sort(function(pos1, pos2) {
+      return pos2[0] - pos1[0];
+    });
+
+    let selectedValues = [
+      parseFloat(racedata.find(item => item[2] == 2015)[0]),
+      parseFloat(racedata.find(item => item[2] == 2016)[0]),
+      parseFloat(racedata.find(item => item[2] == 2017)[0]),
+      parseFloat(racedata.find(item => item[2] == 2018)[0]),
+      parseFloat(racedata.find(item => item[2] == 2019)[0])
+    ];
+    console.log(selectedValues);
+
+    plotTheChartA(selectedValues);
+  });
+}
+
+function getTheDataW(){
+	//console.log("Here we go get the data...");
+
+	
+	$.getJSON("https://data.cityofnewyork.us/resource/jb7j-dtam.json",function(result){
+    let racedata = [];
+    for(let i = 0; i < result.length; i++){
+      if (result[i]['race_ethnicity'] == 'Non-Hispanic White' && result[i]['age_adjusted_death_rate'] != undefined
+          && result[i]['leading_cause']=='Diseases of Heart (I00-I09, I11, I13, I20-I51)') {
+        let race = [];
+        race[0] = result[i]['age_adjusted_death_rate'];
+        race[1] = result[i]['leading_cause'];
+        race[2] = result[i]['year'];
+        racedata.push(race);
+      }
+    }
+    racedata.sort(function(pos1, pos2) {
+      return pos2[0] - pos1[0];
+    });
+
+    let selectedValues = [
+      parseFloat(racedata.find(item => item[2] == 2015)[0]),
+      parseFloat(racedata.find(item => item[2] == 2016)[0]),
+      parseFloat(racedata.find(item => item[2] == 2017)[0]),
+      parseFloat(racedata.find(item => item[2] == 2018)[0]),
+      parseFloat(racedata.find(item => item[2] == 2019)[0])
+    ];
+    console.log(selectedValues);
+
+    plotTheChartW(selectedValues);
+  });
+
+}
+function plotTheChart(selectedValues) {
+  let url = 'https://image-charts.com/chart?chco=CC00FF&chd=t:' + selectedValues + '&chxl=0:|2015|2016|2017|2018|2019|&chxt=x,y&chs=550x500&chls=2&cht=lc&chds=0,200';
+  $("#output").html('<img src="' + url + '">');
+  console.log(url);
+}
+
+
+
+function plotTheChartB(selectedValues){
+  let url = 'https://image-charts.com/chart?chco=3072F3&chd=t:' + selectedValues + '&chxl=0:|2015|2016|2017|2018|2019|&chxt=x,y&chs=550x600&chls=2&cht=lc&chds=0,300';
+  $("#output2").html('<img src="' + url + '">');
+  console.log(url);
+
+}
+
+function plotTheChartA(selectedValues){
+  let url = 'https://image-charts.com/chart?chco=33CC33&chd=t:' + selectedValues + '&chxl=0:|2015|2016|2017|2018|2019|&chxt=x,y&chs=550x600&chls=2&cht=lc&chds=0,130';
+  $("#output3").html('<img src="' + url + '">');
+  console.log(url);
+}
+
+function plotTheChartW(selectedValues){
+  let url = 'https://image-charts.com/chart?chco=CC0000&chd=t:' + selectedValues + '&chxl=0:|2015|2016|2017|2018|2019|&chxt=x,y&chs=550x600&chls=2&cht=lc&chds=0,300';
+  $("#output4").html('<img src="' + url + '">');
+  console.log(url)
+}
+
+//click event handlers
+
+$('#btn_1').click(function(){
+	getTheData();
+	$("#output").show();
+	$('#output2').hide();
+	$('#output3').hide()
+	$('#output4').hide()
+})
+
+$('#btn_2').click(function(){
+	getTheDataB();
+	$("#output2").show();
+	$('#output').hide();
+	$('#output3').hide()
+	$('#output4').hide()
+})
+
+$('#btn_3').click(function(){
+	getTheDataA();
+	$("#output3").show();
+	$('#output2').hide();
+	$('#output').hide()
+	$('#output4').hide()
+})
+
+$('#btn_4').click(function(){
+	getTheDataW();
+	$("#output4").show();
+	$('#output2').hide();
+	$('#output3').hide()
+	$('#output').hide()
+})
+
+</script>
+</html>
