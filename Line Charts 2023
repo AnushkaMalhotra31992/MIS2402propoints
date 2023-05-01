@@ -17,10 +17,10 @@
       issues for the years 2015-2019. Data is separated by ethnic background.
     </p>
 		<form>
-			<input type="button" value="Leading Cause of Death for Hispanic Citizens" id="btn_1"><br><br>
-		    <input type="button" value="Leading Cause of Death for Non-Hispanic Black Citizens" id="btn_2"><br><br>
-			<input type="button" value="Leading Cause of Death for Asian and Pacific Islander Citizens" id="btn_3"><br><br>
-		    <input type="button" value="Leading Cause of Death for Non-Hispanic White  Citizens" id="btn_4">
+			<input type="button" value="Death rate due to Heart Diseases for Hispanic Citizens" id="btn_1"><br><br>
+		    <input type="button" value="Death rate due to Heart Diseases for Non-Hispanic Black Citizens" id="btn_2"><br><br>
+			<input type="button" value="Death rate due to Heart Diseases for Asian and Pacific Islander Citizens" id="btn_3"><br><br>
+		    <input type="button" value="Death rate due to Heart Diseases for Non-Hispanic White  Citizens" id="btn_4">
 		</form>
 		<br><br><br>
 		<div id="output"></div>
